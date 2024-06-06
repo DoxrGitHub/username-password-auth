@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    <input id="username-login" placeholder="username">
+    <input id="password-login" placeholder="password">
+    <button onclick="login()">submit</button>
+  </body>
+  <script>
+    function login() {
+      let username = document.getElementById("username-login").value;
+      let password = document.getElementById("password-login").value;
+      fetch("/login", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"username": username, "password": password}),
+      })
+     .then(response => response.text())
+     .then(data => {
+       if (data === "request went fine") {
+         location.href="/"
+       } else {
+         alert("error: " + data)
+       }
+      });
+    }
+
+  </script>
+</html>
